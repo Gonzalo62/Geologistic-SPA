@@ -1,0 +1,1885 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geo Logistic - Moviendo tu Negocio</title>
+    <link href="https://cdn.jsdelivr.net/npm/fontsource-inter@5.0.0/index.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #1a3d0a;
+            --secondary-green: #2d6b1e;
+            --accent-green: #7ed321;
+            --logo-green: #8bc34a;
+            --light-green: #c8e6c9;
+            --pale-green: #f1f8e9;
+            --dark-bg: #0d1f08;
+            --white: #ffffff;
+            --text-dark: #1a1a1a;
+            --text-muted: #555;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            background: var(--white);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 31, 8, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 5%;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        nav.scrolled {
+            padding: 0.7rem 5%;
+            background: rgba(255, 255, 255, 0.97);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+        }
+
+        .logo-svg {
+            width: 50px;
+            height: 50px;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .logo:hover .logo-svg {
+            transform: rotate(-10deg) scale(1.1);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+
+        .logo-text .brand {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: -0.5px;
+            transition: color 0.3s;
+        }
+
+        nav.scrolled .logo-text .brand {
+            color: var(--primary-green);
+        }
+
+        .logo-text .tagline {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--accent-green);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        nav.scrolled .nav-links a {
+            color: var(--text-dark);
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent-green);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 0 5%;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://image.qwenlm.ai/public_source/510a8184-fa97-4e28-b09c-f10de8b68b82/13302a953-2385-4f5e-8c19-8f98e2f0ddfa.png');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.6);
+            transform: scale(1.1);
+            animation: heroZoom 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroZoom {
+            0% { transform: scale(1.1); }
+            100% { transform: scale(1.15); }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(13, 31, 8, 0.9) 0%, rgba(26, 61, 10, 0.7) 50%, rgba(45, 107, 30, 0.5) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+
+        .hero-logo-large {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            animation: fadeInDown 1s ease;
+            filter: drop-shadow(0 10px 30px rgba(126, 211, 33, 0.4));
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            background: rgba(126, 211, 33, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(126, 211, 33, 0.4);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            animation: fadeInDown 1s ease 0.2s backwards;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-green);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            animation: fadeInUp 1s ease 0.3s backwards;
+        }
+
+        .hero h1 span {
+            display: block;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-quote {
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            margin-bottom: 1rem;
+            font-style: italic;
+            font-weight: 300;
+            animation: fadeInUp 1s ease 0.5s backwards;
+            opacity: 0.95;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 1.8vw, 1.2rem);
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.6s backwards;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.7s backwards;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            background: var(--accent-green);
+            color: var(--primary-green);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 800;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(126, 211, 33, 0.4);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(126, 211, 33, 0.6);
+            background: white;
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary-green);
+            border-color: white;
+            transform: translateY(-5px);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            animation: bounce 2s infinite;
+            z-index: 2;
+            opacity: 0.7;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Floating shapes */
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(126, 211, 33, 0.08);
+            backdrop-filter: blur(5px);
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) { width: 100px; height: 100px; top: 20%; left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { width: 150px; height: 150px; top: 60%; left: 80%; animation-delay: -3s; }
+        .shape:nth-child(3) { width: 80px; height: 80px; top: 40%; left: 70%; animation-delay: -6s; }
+        .shape:nth-child(4) { width: 120px; height: 120px; top: 70%; left: 20%; animation-delay: -9s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        /* About Section */
+        .about {
+            padding: 8rem 5%;
+            background: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+            transform: rotate(-2deg);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .about-image:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(126, 211, 33, 0.2), transparent);
+            z-index: 1;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-image-decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 20px;
+            left: 20px;
+            border: 3px solid var(--accent-green);
+            border-radius: 30px;
+            z-index: -1;
+        }
+
+        .about-content {
+            position: relative;
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background: var(--pale-green);
+            color: var(--accent-green);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .about-content h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+
+        .about-content h2 span {
+            color: var(--accent-green);
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 2px solid var(--pale-green);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent-green);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Mission/Vision Section */
+        .mission-vision {
+            padding: 8rem 5%;
+            background: linear-gradient(135deg, var(--pale-green) 0%, var(--white) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-vision::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(126, 211, 33, 0.15), transparent 70%);
+            border-radius: 50%;
+        }
+
+        .mission-vision-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mission-vision-content h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            color: var(--primary-green);
+            margin-bottom: 2rem;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            background: white;
+            padding: 0.5rem;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            width: fit-content;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1rem;
+        }
+
+        .tab-btn.active {
+            background: var(--accent-green);
+            color: var(--primary-green);
+            box-shadow: 0 5px 20px rgba(126, 211, 33, 0.4);
+        }
+
+        .tab-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            display: none;
+            animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 5px solid var(--accent-green);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .tab-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+        }
+
+        .mission-vision-image {
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+            transform: rotate(2deg);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mission-vision-image:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        .mission-vision-image img {
+            width: 100%;
+            height: 550px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .mission-vision-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(13, 31, 8, 0.4), transparent 50%);
+        }
+
+        /* Value Added Section */
+        .values {
+            padding: 8rem 5%;
+            background: var(--dark-bg);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .values::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(126, 211, 33, 0.1), transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(126, 211, 33, 0.08), transparent 50%);
+        }
+
+        .values-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .values-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .values-header .section-label {
+            background: rgba(126, 211, 33, 0.15);
+            color: var(--accent-green);
+        }
+
+        .values-header h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 900;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .values-header h2 span {
+            color: var(--accent-green);
+        }
+
+        .values-header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .value-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(126, 211, 33, 0.2);
+            padding: 2.5rem;
+            border-radius: 25px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(126, 211, 33, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-green);
+            box-shadow: 0 20px 50px rgba(126, 211, 33, 0.2);
+        }
+
+        .value-card:hover::before {
+            opacity: 1;
+        }
+
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-green), var(--logo-green));
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.4s;
+        }
+
+        .value-card:hover .value-icon {
+            transform: rotate(-10deg) scale(1.1);
+        }
+
+        .value-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+        }
+
+        .value-card p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 8rem 5%;
+            background: var(--white);
+            position: relative;
+        }
+
+        .services-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            color: var(--primary-green);
+            font-weight: 900;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-green), var(--logo-green));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 60px rgba(126, 211, 33, 0.15);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--light-green), var(--pale-green));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotate(-10deg) scale(1.1);
+            background: linear-gradient(135deg, var(--accent-green), var(--logo-green));
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            padding: 0.5rem 0;
+            color: var(--text-muted);
+            position: relative;
+            padding-left: 1.8rem;
+            font-size: 0.9rem;
+        }
+
+        .service-features li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover .service-features li::before {
+            transform: translateX(5px);
+        }
+
+        .service-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--accent-green);
+            color: var(--primary-green);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        /* Bodega Service Card - Special Style */
+        .service-card.bodega {
+            background: linear-gradient(135deg, #1a3d0a 0%, #2d6b1e 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card.bodega::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://image.qwenlm.ai/public_source/510a8184-fa97-4e28-b09c-f10de8b68b82/1d63e6b9e-4e6f-4c1e-9a1f-3e8c9d5f2a1b.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .service-card.bodega > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card.bodega h3 {
+            color: white;
+        }
+
+        .service-card.bodega p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .service-card.bodega .service-features li {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .service-card.bodega .service-features li::before {
+            color: var(--accent-green);
+        }
+
+        .service-card.bodega .service-icon {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .service-card.bodega .service-badge {
+            background: var(--accent-green);
+            color: var(--primary-green);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 8rem 5%;
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 50%, var(--accent-green) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .contact::after {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            left: -150px;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 50%;
+        }
+
+        .contact-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .contact-info > p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.1rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(10px);
+        }
+
+        .contact-item-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--accent-green);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item-content h4 {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-item-content p, .contact-item-content a {
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+        }
+
+        .contact-form h3 {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .contact-form > p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem 1.1rem;
+            border: 2px solid #e8e8e8;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 4px rgba(126, 211, 33, 0.15);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1.1rem;
+            background: linear-gradient(135deg, var(--accent-green), var(--logo-green));
+            color: var(--primary-green);
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(126, 211, 33, 0.3);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(126, 211, 33, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            color: white;
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-brand .logo-svg {
+            width: 45px;
+            height: 45px;
+        }
+
+        .footer-brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-brand-text .brand {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: white;
+        }
+
+        .footer-brand-text .tagline {
+            font-size: 0.65rem;
+            color: var(--accent-green);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .footer-section h3 {
+            color: var(--accent-green);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #aaa;
+            line-height: 1.8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-green);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #2a2a2a;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            background: rgba(126, 211, 33, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-green);
+            transform: translateY(-5px) rotate(-5deg);
+        }
+
+        /* Scroll Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 999;
+            text-decoration: none;
+            color: white;
+            font-size: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5); }
+            50% { box-shadow: 0 10px 40px rgba(37, 211, 102, 0.8); }
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.15) rotate(10deg);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .about-container,
+            .mission-vision-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .contact-form {
+                padding: 2rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#inicio" class="logo">
+                <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="55" r="38" fill="#8bc34a"/>
+                    <ellipse cx="50" cy="55" rx="38" ry="38" fill="none" stroke="#0d1f08" stroke-width="2"/>
+                    <path d="M 12 55 Q 50 55 88 55" stroke="#0d1f08" stroke-width="2" fill="none"/>
+                    <path d="M 15 40 Q 50 40 85 40" stroke="#0d1f08" stroke-width="2" fill="none"/>
+                    <path d="M 15 70 Q 50 70 85 70" stroke="#0d1f08" stroke-width="2" fill="none"/>
+                    <path d="M 50 17 Q 50 55 50 93" stroke="#0d1f08" stroke-width="2" fill="none"/>
+                    <path d="M 25 22 Q 30 55 25 88" stroke="#0d1f08" stroke-width="2" fill="none"/>
+                    <path d="M 75 22 Q 70 55 75 88" stroke="#0d1f08" stroke-width="2" fill="none"/>
+                    <path d="M 50 5 L 50 25 L 40 25 Q 40 15 50 5 Z" fill="white" stroke="#0d1f08" stroke-width="1.5"/>
+                    <circle cx="50" cy="18" r="4" fill="#0d1f08"/>
+                </svg>
+                <div class="logo-text">
+                    <span class="brand">GEO LOGISTIC</span>
+                    <span class="tagline">Moviendo tu negocio</span>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#nosotros">Quiénes Somos</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="hero-content">
+            <svg class="hero-logo-large" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="55" r="38" fill="#8bc34a"/>
+                <ellipse cx="50" cy="55" rx="38" ry="38" fill="none" stroke="#0d1f08" stroke-width="2"/>
+                <path d="M 12 55 Q 50 55 88 55" stroke="#0d1f08" stroke-width="2" fill="none"/>
+                <path d="M 15 40 Q 50 40 85 40" stroke="#0d1f08" stroke-width="2" fill="none"/>
+                <path d="M 15 70 Q 50 70 85 70" stroke="#0d1f08" stroke-width="2" fill="none"/>
+                <path d="M 50 17 Q 50 55 50 93" stroke="#0d1f08" stroke-width="2" fill="none"/>
+                <path d="M 25 22 Q 30 55 25 88" stroke="#0d1f08" stroke-width="2" fill="none"/>
+                <path d="M 75 22 Q 70 55 75 88" stroke="#0d1f08" stroke-width="2" fill="none"/>
+                <path d="M 50 5 L 50 25 L 40 25 Q 40 15 50 5 Z" fill="white" stroke="#0d1f08" stroke-width="1.5"/>
+                <circle cx="50" cy="18" r="4" fill="#0d1f08"/>
+            </svg>
+            <div class="hero-badge">🚛 Logística Nacional de Excelencia</div>
+            <h1>
+                <span>"Llegamos donde</span>
+                <span>otros no llegan."</span>
+            </h1>
+            <p class="hero-quote">Servicio logístico eficiente, flexible y confiable.</p>
+            <p>Siempre comprometidos con estar moviendo tu negocio.</p>
+            <div class="hero-buttons">
+                <a href="#servicios" class="btn-primary">Nuestros Servicios →</a>
+                <a href="#contacto" class="btn-secondary">Contáctanos</a>
+            </div>
+        </div>
+        <div class="hero-scroll">SCROLL ↓</div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="nosotros">
+        <div class="about-container">
+            <div class="about-image-wrapper reveal-left">
+                <div class="about-image">
+                    <img src="https://image.qwenlm.ai/public_source/510a8184-fa97-4e28-b09c-f10de8b68b82/1be6349c3-b368-400f-9432-0d6bb82180d9.png" alt="Camión de carga Geo Logistic">
+                </div>
+                <div class="about-image-decoration"></div>
+            </div>
+            <div class="about-content reveal-right">
+                <span class="section-label">Quiénes Somos</span>
+                <h2>Somos <span>GeoLogistic</span></h2>
+                <p>Comenzamos nuestras operaciones de logística nacional a partir de la unión de la <strong>excelencia operacional y comercial</strong> de nuestro equipo, con vasta experiencia en el mercado.</p>
+                <p>Conscientes de las necesidades y requerimientos actuales de nuestros clientes, y siempre comprometidos con <strong>estar siempre moviendo tu negocio</strong>.</p>
+                <a href="#contacto" class="btn-primary" style="margin-top: 1rem;">Contáctanos →</a>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Monitoreo permanente</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Cobertura nacional</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">+10</div>
+                        <div class="stat-label">Años de experiencia</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission/Vision Section -->
+    <section class="mission-vision">
+        <div class="mission-vision-container">
+            <div class="mission-vision-content reveal-left">
+                <span class="section-label">Nuestra Ruta</span>
+                <h2>Sigamos la ruta juntos</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="mision">Misión</button>
+                    <button class="tab-btn" data-tab="vision">Visión</button>
+                </div>
+                <div class="tab-content active" id="mision">
+                    <p>Entregar un servicio de excelencia, adaptable a las distintas necesidades de nuestros clientes, con las bases de <strong>seguridad, cumplimiento y atención personalizada</strong>.</p>
+                </div>
+                <div class="tab-content" id="vision">
+                    <p>Ser reconocidos como <strong>líderes en calidad de servicio</strong> de transporte de carga nacional, creciendo en nuestras fronteras y a nivel internacional.</p>
+                </div>
+            </div>
+            <div class="mission-vision-image reveal-right">
+                <img src="https://image.qwenlm.ai/public_source/510a8184-fa97-4e28-b09c-f10de8b68b82/120e22c5e-5a10-4ea8-8e63-10257a4f059f.png" alt="Trabajador logístico de espaldas mirando contenedores">
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Added Section -->
+    <section class="values">
+        <div class="values-container">
+            <div class="values-header reveal">
+                <span class="section-label">Lo que nos diferencia</span>
+                <h2>Nuestro <span>Valor Agregado</span></h2>
+                <p>En el mundo del transporte y la logística, los valores que hacen la diferencia para que nuestros clientes nos prefieran y confíen en nosotros.</p>
+            </div>
+            <div class="values-grid">
+                <div class="value-card reveal">
+                    <div class="value-icon">🔄</div>
+                    <h3>Flexibilidad</h3>
+                    <p>Nos adaptamos a las necesidades cambiantes de tu operación logística con soluciones a medida.</p>
+                </div>
+                <div class="value-card reveal">
+                    <div class="value-icon">👥</div>
+                    <h3>Atención</h3>
+                    <p>Atención personalizada y cercana, siempre disponible para resolver tus dudas y coordinaciones.</p>
+                </div>
+                <div class="value-card reveal">
+                    <div class="value-icon">💡</div>
+                    <h3>Asesoría</h3>
+                    <p>Te acompañamos con asesoría experta para optimizar cada etapa de tu cadena de suministro.</p>
+                </div>
+                <div class="value-card reveal">
+                    <div class="value-icon"></div>
+                    <h3>Rapidez</h3>
+                    <p>Tiempos de respuesta ágiles y despachos eficientes para que tu negocio nunca se detenga.</p>
+                </div>
+                <div class="value-card reveal">
+                    <div class="value-icon">📍</div>
+                    <h3>Trazabilidad</h3>
+                    <p>Seguimiento permanente de tus cargas con información en tiempo real y anticipación de novedades.</p>
+                </div>
+                <div class="value-card reveal">
+                    <div class="value-icon">🛡️</div>
+                    <h3>Seguro de Carga</h3>
+                    <p>Tu carga protegida con seguros que respaldan cada operación y te dan tranquilidad total.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="servicios">
+        <div class="services-container">
+            <div class="section-header reveal">
+                <span class="section-label">Lo que hacemos</span>
+                <h2 class="section-title">Nuestros Servicios</h2>
+                <p class="section-subtitle">Soluciones logísticas integrales adaptadas a tus necesidades</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <span class="service-badge">24/7</span>
+                    <div class="service-icon">🚢</div>
+                    <h3>Movimiento de Contenedores</h3>
+                    <p>Tanto para tus cargas de Importación como Exportación, para todo tipo de unidades Dry, Reefer o unidades especiales. Contamos con un equipo 24/7 monitoreando permanentemente.</p>
+                    <ul class="service-features">
+                        <li>Unidades Dry, Reefer y especiales</li>
+                        <li>Importación y Exportación</li>
+                        <li>Monitoreo permanente 24/7</li>
+                        <li>Coordinaciones en tiempo y forma</li>
+                        <li>Información y anticipación constante</li>
+                    </ul>
+                </div>
+
+                <div class="service-card reveal">
+                    <div class="service-icon">🚛</div>
+                    <h3>Distribución Nacional</h3>
+                    <p>Servicio especialista tanto para entregas de primera como última milla, con las unidades indicadas para tus entregas, atendiendo los estándares requeridos.</p>
+                    <ul class="service-features">
+                        <li>Primera y última milla</li>
+                        <li>Estándares retail e industria</li>
+                        <li>Consumidor final</li>
+                        <li>Unidades especializadas</li>
+                        <li>Cobertura nacional completa</li>
+                    </ul>
+                </div>
+
+                <div class="service-card reveal">
+                    <div class="service-icon">🏗️</div>
+                    <h3>Cargas Proyecto</h3>
+                    <p>Servicio y dotación de unidades especiales para atender tus necesidades de transporte sobredimensionado, descargas especiales y cargas de estándar minero.</p>
+                    <ul class="service-features">
+                        <li>Cargas sobredimensionadas</li>
+                        <li>Descargas especiales</li>
+                        <li>Estándar minero</li>
+                        <li>Unidades especializadas</li>
+                        <li>Planificación de rutas</li>
+                    </ul>
+                </div>
+
+                <div class="service-card bodega reveal">
+                    <span class="service-badge">NUEVO</span>
+                    <div class="service-icon">🏭</div>
+                    <h3>Almacenamiento y Bodega</h3>
+                    <p>Servicio de bodega seguro y eficiente para tu carga, con logística integral y control permanente de inventario.</p>
+                    <ul class="service-features">
+                        <li>Logística y trazabilidad completa</li>
+                        <li>Seguridad en cada carga</li>
+                        <li>Orden y eficiencia operativa</li>
+                        <li>Control de inventario en tiempo real</li>
+                        <li>Instalaciones equipadas y monitoreadas</li>
+                    </ul>
+                </div>
+
+                <div class="service-card reveal">
+                    <div class="service-icon">⭐</div>
+                    <h3>Servicios Adicionales</h3>
+                    <p>Si tus cargas no sólo requieren traslado, sino además otros procesos de descarga, contamos con servicios complementarios para tu operación.</p>
+                    <ul class="service-features">
+                        <li>Peonetas y cuadrillas de trabajo</li>
+                        <li>Equipos Sidelifter</li>
+                        <li>Unidades camión pluma</li>
+                        <li>Procesos de descarga</li>
+                        <li>Soporte operativo integral</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contacto">
+        <div class="contact-container">
+            <div class="contact-info reveal-left">
+                <span class="section-label" style="background: rgba(255,255,255,0.15); color: white;">Encuéntranos</span>
+                <h2>Hablemos de tu próximo proyecto</h2>
+                <p>Estamos listos para mover tu negocio. Contáctanos y te ayudamos con la solución logística que necesitas.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📍</div>
+                        <div class="contact-item-content">
+                            <h4>Dirección</h4>
+                            <p>San Sebastián 2750, Oficina 603<br>Las Condes, Santiago</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📱</div>
+                        <div class="contact-item-content">
+                            <h4>Teléfono Comercial</h4>
+                            <a href="tel:+56991248248">+56 9 9124 8248</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📱</div>
+                        <div class="contact-item-content">
+                            <h4>Teléfono Operaciones</h4>
+                            <a href="tel:+56940809372">+56 9 4080 9372</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">✉️</div>
+                        <div class="contact-item-content">
+                            <h4>Email Comercial</h4>
+                            <a href="mailto:comercial@geologistics.cl">comercial@geologistics.cl</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">✉️</div>
+                        <div class="contact-item-content">
+                            <h4>Email Operaciones</h4>
+                            <a href="mailto:operaciones@geologistics.cl">operaciones@geologistics.cl</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">🕐</div>
+                        <div class="contact-item-content">
+                            <h4>Horario</h4>
+                            <p>Lun-Vie: 8:30 a 18:00 Hrs<br>Sáb: 9:00 a 13:00 Hrs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form class="contact-form reveal-right" id="contactForm">
+                <h3>Envíanos un mensaje</h3>
+                <p>Te responderemos a la brevedad</p>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="mensaje">Mensaje</label>
+                    <textarea id="mensaje" name="mensaje" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Enviar mensaje →</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-brand">
+                    <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="55" r="38" fill="#8bc34a"/>
+                        <ellipse cx="50" cy="55" rx="38" ry="38" fill="none" stroke="#0d1f08" stroke-width="2"/>
+                        <path d="M 12 55 Q 50 55 88 55" stroke="#0d1f08" stroke-width="2" fill="none"/>
+                        <path d="M 15 40 Q 50 40 85 40" stroke="#0d1f08" stroke-width="2" fill="none"/>
+                        <path d="M 15 70 Q 50 70 85 70" stroke="#0d1f08" stroke-width="2" fill="none"/>
+                        <path d="M 50 17 Q 50 55 50 93" stroke="#0d1f08" stroke-width="2" fill="none"/>
+                        <path d="M 25 22 Q 30 55 25 88" stroke="#0d1f08" stroke-width="2" fill="none"/>
+                        <path d="M 75 22 Q 70 55 75 88" stroke="#0d1f08" stroke-width="2" fill="none"/>
+                        <path d="M 50 5 L 50 25 L 40 25 Q 40 15 50 5 Z" fill="white" stroke="#0d1f08" stroke-width="1.5"/>
+                        <circle cx="50" cy="18" r="4" fill="#0d1f08"/>
+                    </svg>
+                    <div class="footer-brand-text">
+                        <span class="brand">GEO LOGISTIC</span>
+                        <span class="tagline">Moviendo tu negocio</span>
+                    </div>
+                </div>
+                <p>Empresa chilena especializada en logística nacional. Nacemos de la unión entre excelencia operacional y comercial, con un equipo altamente calificado y comprometido con el éxito de nuestros clientes.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"></a>
+                    <a href="#" aria-label="Facebook">📘</a>
+                    <a href="#" aria-label="LinkedIn">💼</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Servicios</h3>
+                <p><a href="#servicios">Movimiento de Contenedores</a></p>
+                <p><a href="#servicios">Distribución Nacional</a></p>
+                <p><a href="#servicios">Cargas Proyecto</a></p>
+                <p><a href="#servicios">Almacenamiento y Bodega</a></p>
+                <p><a href="#servicios">Servicios Adicionales</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Horarios</h3>
+                <p><strong style="color: white;">Lunes a viernes:</strong><br>8:30 a 18:00 Hrs.</p>
+                <p style="margin-top: 1rem;"><strong style="color: white;">Sábado:</strong><br>9:00 a 13:00 Hrs.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>San Sebastián 2750, Of. 603<br>Las Condes, Santiago</p>
+                <p style="margin-top: 1rem;"><strong style="color: white;">Teléfonos:</strong></p>
+                <p><a href="tel:+56991248248">+56 9 9124 8248</a></p>
+                <p><a href="tel:+56940809372">+56 9 4080 9372</a></p>
+                <p style="margin-top: 0.5rem;"><a href="mailto:comercial@geologistics.cl">comercial@geologistics.cl</a></p>
+                <p><a href="mailto:operaciones@geologistics.cl">operaciones@geologistics.cl</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Geo Logistic. Todos los derechos reservados. | Moviendo tu negocio</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/56991248248" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+        
+    </a>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                btn.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Scroll animations with Intersection Observer
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 80);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const btn = e.target.querySelector('.btn-submit');
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Enviado con éxito';
+            btn.style.background = 'linear-gradient(135deg, #25d366, #128c7e)';
+            btn.style.color = 'white';
+            
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '';
+                btn.style.color = '';
+                e.target.reset();
+            }, 3000);
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroBg = document.querySelector('.hero-bg');
+            if (heroBg) {
+                heroBg.style.transform = `scale(1.1) translateY(${scrolled * 0.3}px)`;
+            }
+        });
+
+        // Counter animation for stats
+        const animateCounter = (el) => {
+            const text = el.textContent;
+            const match = text.match(/(\+?)(\d+)(.*)/);
+            if (!match) return;
+            
+            const prefix = match[1];
+            const target = parseInt(match[2]);
+            const suffix = match[3];
+            let current = 0;
+            const increment = target / 40;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    el.textContent = prefix + target + suffix;
+                    clearInterval(timer);
+                } else {
+                    el.textContent = prefix + Math.floor(current) + suffix;
+                }
+            }, 30);
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        if (!stat.classList.contains('animated')) {
+                            animateCounter(stat);
+                            stat.classList.add('animated');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsGrid = document.querySelector('.stats-grid');
+        if (statsGrid) {
+            statsObserver.observe(statsGrid);
+        }
+
+        // Logo rotation on scroll
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const logoSvgs = document.querySelectorAll('.logo-svg');
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                logoSvgs.forEach(svg => {
+                    svg.style.transform = 'rotate(5deg)';
+                });
+            } else {
+                logoSvgs.forEach(svg => {
+                    svg.style.transform = 'rotate(0deg)';
+                });
+            }
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
+
